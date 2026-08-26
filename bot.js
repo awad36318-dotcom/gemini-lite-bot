@@ -3,7 +3,7 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const http = require('http');
 
 const genAI = new GoogleGenerativeAI('AQ.Ab8RN6IC70gtYmCvREtHAEzKG53vJSnjQjbRyxPB2xSe7osxxw');
-const bot = new Telegraf('8891226970:AAFOH3clj9m_qjFg_RgYg70Qgr-KmPhxd1s');
+const bot = new Telegraf('8776855970:AAHfu2szMSEeU5ZsVwjXDxq5tIG2zLXzXz0');
 
 bot.start((ctx) => ctx.reply('أهلاً بك في Gemini Lite! اسألني أي سؤال وسأجيبك بذكاء.'));
 
