@@ -1,9 +1,8 @@
 const { Telegraf } = require('telegraf');
-const { GoogleGenAI } = require('@google/genai');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-// ضع مفتاحك هنا بين القوسين
-const ai = new GoogleGenAI({ apiKey: 'AQ.Ab8RN6IC70gtYmCvREtHAEzKG53vJSnjQjbRyxPB2xSe7osxxw' });
-const bot = new Telegraf('8685172412:AAENhsvFg_jfKbn9VJkFO6T4jNrHfu-jxhA'); // بوتك على تليجرام
+const genAI = new GoogleGenerativeAI('AQ.Ab8RN6IC70gtYmCvREtHAEzKG53vJSnjQjbRyxPB2xSe7osxxw');
+const bot = new Telegraf('8685172412:AAENhsvFg_jfKbn9VJkFO6T4jNrHfu-jxhA');
 
 bot.start((ctx) => ctx.reply('أهلاً بك في Gemini Lite! اسألني أي سؤال وسأجيبك بذكاء.'));
 
@@ -12,15 +11,14 @@ bot.on('text', async (ctx) => {
     const userMessage = ctx.message.text;
     await ctx.sendChatAction('typing');
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: userMessage,
-    });
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const result = await model.generateContent(userMessage);
+    const response = await result.response;
 
-    await ctx.reply(response.text);
+    await ctx.reply(response.text());
   } catch (error) {
     console.error(error);
-    ع ctx.reply('عذراً، حدث خطأ أثناء معالجة طلبك.');
+    ctx.reply('عذراً، حدث خطأ أثناء معالجة طلبك.');
   }
 });
 
