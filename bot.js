@@ -2,9 +2,8 @@ const { Telegraf } = require('telegraf');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const http = require('http');
 
-// قراءة المفاتيح بأمان من إعدادات السحاب
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
+const genAI = new GoogleGenerativeAI('AQ.Ab8RN6IC70gtYmCvREtHAEzKG53vJSnjQjbRyxPB2xSe7osxxw');
+const bot = new Telegraf('8891226970:AAFOH3clj9m_qjFg_RgYg70Qgr-KmPhxd1s');
 
 bot.start((ctx) => ctx.reply('أهلاً بك في Gemini Lite! اسألني أي سؤال وسأجيبك بذكاء.'));
 
@@ -19,7 +18,7 @@ bot.on('text', async (ctx) => {
 
     await ctx.reply(response.text());
   } catch (error) {
-    console.error(error);
+    console.error('API Error details:', error);
     ctx.reply('عذراً، حدث خطأ أثناء معالجة طلبك.');
   }
 });
