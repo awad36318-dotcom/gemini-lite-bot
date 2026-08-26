@@ -1,5 +1,6 @@
 const { Telegraf } = require('telegraf');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
+const http = require('http');
 
 const genAI = new GoogleGenerativeAI('AQ.Ab8RN6IC70gtYmCvREtHAEzKG53vJSnjQjbRyxPB2xSe7osxxw');
 const bot = new Telegraf('8685172412:AAENhsvFg_jfKbn9VJkFO6T4jNrHfu-jxhA');
@@ -20,6 +21,17 @@ bot.on('text', async (ctx) => {
     console.error(error);
     ctx.reply('عذراً، حدث خطأ أثناء معالجة طلبك.');
   }
+});
+
+// خادم ويب بسيط جداً عشان Render يرضى يشغل البوت وما يقفلوش
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Gemini Lite Bot is running!\n');
+});
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
 });
 
 bot.launch();
